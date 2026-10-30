@@ -10,6 +10,8 @@ import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
+//チュートリアル終了時
+
 const localStorageKey = "TodoApp";
 
 type StoredTodo = {
