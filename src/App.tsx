@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Todo } from "./types";
 import { initTodos } from "./initTodos";
 import WelcomeMessage from "./WelcomeMessage";
@@ -10,8 +10,31 @@ import dayjs from "dayjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
+const localStorageKey = "TodoApp";
+
+type StoredTodo = {
+  id: string;
+  name: string;
+  isDone: boolean;
+  priority: number;
+  deadline: string | null;
+};
+
+const loadTodos = (): Todo[] => {
+  const todoJsonStr = localStorage.getItem(localStorageKey);
+  if (todoJsonStr === null) {
+    return initTodos;
+  }
+
+  const storedTodos: StoredTodo[] = JSON.parse(todoJsonStr);
+  return storedTodos.map((todo) => ({
+    ...todo,
+    deadline: todo.deadline === null ? null : new Date(todo.deadline),
+  }));
+};
+
 const App = () => {
-  const [todos, setTodos] = useState<Todo[]>(initTodos);
+  const [todos, setTodos] = useState<Todo[]>(loadTodos);
 
   const [newTodoName, setNewTodoName] = useState("");
 
@@ -30,6 +53,10 @@ const App = () => {
     }
     return "";
   };
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(todos));
+  }, [todos]);
 
   const newTodoNameError = getTodoNameError(newTodoName);
   const isNewTodoNameInvalid = newTodoNameError !== "";
