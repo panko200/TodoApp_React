@@ -5,20 +5,14 @@
 YMM4関連のリポジトリではありません。  
 これは学校用兼Todoアプリのリポジトリであり、YMM4とは何も関連していません。  
 
----
-
 ## 公開 URL
 
 **[TodoApp](https://panko200.github.io/TodoApp_React/)**
-
----
 
 
 # アプリの概要
 
 React、TypeScript、Tailwind CSS を使用し、ローカルストレージでデータを永続化した「Todoアプリ」です。  
-
----
 
 ## アプリの機能
 
